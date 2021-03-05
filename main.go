@@ -4,31 +4,36 @@ import (
 	"ayoconnect-golang-challenge/robber"
 	"ayoconnect-golang-challenge/tree"
 	"fmt"
+	"log"
+	"os"
+	"strconv"
 )
 
 func main() {
-	bst := tree.NewBinarySearchTree()
+	pkg := os.Args[1]
+	switch pkg {
+	case "tree":
+		bst := tree.NewBinarySearchTree()
+		values := os.Args[2:]
 
-	err := bst.Insert(8)
-	if err != nil {
-		fmt.Println(err)
+		for _, val := range values {
+			intVal, err := strconv.Atoi(val)
+			if err != nil {
+				log.Fatal("Binary search tree may only accept integer values.")
+			}
+
+			err = bst.Insert(intVal)
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
+
+		fmt.Println("In-order traversal:", bst.InOrder())
+		fmt.Println("Pre-order traversal:", bst.PreOrder())
+		fmt.Println("Post-order traversal:", bst.PostOrder())
+	case "robber":
+		robber.HouseRobber()
+	default:
+		log.Fatal("Please enter either 'tree' or 'robber' as the first program argument.")
 	}
-	bst.Insert(4)
-	bst.Insert(10)
-	bst.Insert(2)
-	bst.Insert(6)
-	bst.Insert(9)
-	bst.Insert(11)
-	bst.Insert(1)
-	bst.Insert(3)
-	bst.Insert(5)
-	bst.Insert(7)
-
-	fmt.Println("In-order traversal:", bst.InOrder())
-	fmt.Println("Pre-order traversal:", bst.PreOrder())
-	fmt.Println("Post-order traversal:", bst.PostOrder())
-
-	fmt.Println("")
-
-	robber.HouseRobber()
 }
