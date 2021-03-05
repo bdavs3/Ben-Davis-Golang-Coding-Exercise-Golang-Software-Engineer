@@ -46,13 +46,13 @@ func (bst *BinarySearchTree) Insert(val int) error {
 
 func traverseAndInsert(root, insert *Node) error {
 	if insert.val < root.val {
-		if insert.left == nil {
+		if root.left == nil {
 			root.left = insert
 		} else {
 			traverseAndInsert(root.left, insert)
 		}
 	} else if insert.val > root.val {
-		if insert.right == nil {
+		if root.right == nil {
 			root.right = insert
 		} else {
 			traverseAndInsert(root.right, insert)
@@ -64,8 +64,21 @@ func traverseAndInsert(root, insert *Node) error {
 	return nil
 }
 
-func (bst *BinarySearchTree) InOrder() {
-	fmt.Println("InOrder")
+func (bst *BinarySearchTree) InOrder() []int {
+	bst.mu.RLock()
+	defer bst.mu.RUnlock()
+
+	visited := []int{}
+	traverseInOrder(&visited, bst.root)
+	return visited
+}
+
+func traverseInOrder(visited *[]int, root *Node) {
+	if root != nil {
+		traverseInOrder(visited, root.left)
+		*visited = append(*visited, root.val)
+		traverseInOrder(visited, root.right)
+	}
 }
 
 func (bst *BinarySearchTree) PreOrder() {
