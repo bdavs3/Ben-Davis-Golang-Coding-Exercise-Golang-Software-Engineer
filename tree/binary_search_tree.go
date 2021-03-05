@@ -1,6 +1,7 @@
 package tree
 
 import (
+	"errors"
 	"fmt"
 	"sync"
 )
@@ -30,18 +31,47 @@ func NewNode(val int) *Node {
 	}
 }
 
-func (bt *BinarySearchTree) Insert() {
-	fmt.Println("Insert")
+func (bst *BinarySearchTree) Insert(val int) error {
+	bst.mu.Lock()
+	defer bst.mu.Unlock()
+
+	insert := NewNode(val)
+	if bst.root == nil {
+		bst.root = insert
+		return nil
+	} else {
+		return traverseAndInsert(bst.root, insert)
+	}
 }
 
-func (bt *BinarySearchTree) InOrder() {
+func traverseAndInsert(root, insert *Node) error {
+	if insert.val < root.val {
+		if insert.left == nil {
+			root.left = insert
+		} else {
+			traverseAndInsert(root.left, insert)
+		}
+	} else if insert.val > root.val {
+		if insert.right == nil {
+			root.right = insert
+		} else {
+			traverseAndInsert(root.right, insert)
+		}
+	} else { // As a simplification, prevent the tree from containing duplicate values.
+		return errors.New(fmt.Sprintf("The value %d is already in the binary search tree!", insert.val))
+	}
+
+	return nil
+}
+
+func (bst *BinarySearchTree) InOrder() {
 	fmt.Println("InOrder")
 }
 
-func (bt *BinarySearchTree) PreOrder() {
+func (bst *BinarySearchTree) PreOrder() {
 	fmt.Println("PreOrder")
 }
 
-func (bt *BinarySearchTree) PostOrder() {
+func (bst *BinarySearchTree) PostOrder() {
 	fmt.Println("PostOrder")
 }

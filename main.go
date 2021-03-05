@@ -8,7 +8,17 @@ import (
 
 func main() {
 	bst := tree.NewBinarySearchTree()
-	bst.Insert()
+
+	err := bst.Insert(5)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = bst.Insert(4)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	bst.InOrder()
 	bst.PreOrder()
 	bst.PostOrder()
