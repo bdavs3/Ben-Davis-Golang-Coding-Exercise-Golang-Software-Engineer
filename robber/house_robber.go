@@ -1,7 +1,15 @@
 package robber
 
-import "fmt"
+type Street struct {
+	houses []int
+}
 
-func HouseRobber() {
-	fmt.Println("House Robber")
+func NewStreet(houses []int) *Street {
+	return &Street{
+		houses: houses,
+	}
+}
+
+func (s *Street) Rob() {
+
 }
