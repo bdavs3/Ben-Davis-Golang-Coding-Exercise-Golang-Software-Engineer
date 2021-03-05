@@ -7,8 +7,7 @@ import (
 )
 
 func main() {
-	bst := tree.NewBinarySearchTree(5)
-	fmt.Println(bst)
+	bst := tree.NewBinarySearchTree()
 	bst.Insert()
 	bst.InOrder()
 	bst.PreOrder()

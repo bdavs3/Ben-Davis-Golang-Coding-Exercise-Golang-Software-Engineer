@@ -1,23 +1,33 @@
 package tree
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 type BinarySearchTree struct {
-	Root  int
-	Left  *BinarySearchTree
-	Right *BinarySearchTree
+	root *Node
+	mu   sync.RWMutex // Synchronize access to the BST to avoid race conditions.
 }
 
-func NewBinarySearchTree(root int) *BinarySearchTree {
+func NewBinarySearchTree() *BinarySearchTree {
 	return &BinarySearchTree{
-		Root:  root,
-		Left:  nil,
-		Right: nil,
+		root: nil,
 	}
 }
 
-func (bt *BinarySearchTree) String() string {
-	return fmt.Sprintf("I am a binary tree with root %d", bt.Root)
+type Node struct {
+	val   int
+	left  *Node
+	right *Node
+}
+
+func NewNode(val int) *Node {
+	return &Node{
+		val:   val,
+		left:  nil,
+		right: nil,
+	}
 }
 
 func (bt *BinarySearchTree) Insert() {
