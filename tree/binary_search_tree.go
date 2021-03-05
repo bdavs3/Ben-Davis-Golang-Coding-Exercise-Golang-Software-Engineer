@@ -98,6 +98,19 @@ func traversePreOrder(visited *[]int, root *Node) {
 	}
 }
 
-func (bst *BinarySearchTree) PostOrder() {
-	fmt.Println("PostOrder")
+func (bst *BinarySearchTree) PostOrder() []int {
+	bst.mu.RLock()
+	defer bst.mu.RUnlock()
+
+	visited := []int{}
+	traversePostOrder(&visited, bst.root)
+	return visited
+}
+
+func traversePostOrder(visited *[]int, root *Node) {
+	if root != nil {
+		traversePostOrder(visited, root.left)
+		traversePostOrder(visited, root.right)
+		*visited = append(*visited, root.val)
+	}
 }

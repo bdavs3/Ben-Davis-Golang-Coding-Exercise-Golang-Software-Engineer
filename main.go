@@ -26,7 +26,7 @@ func main() {
 
 	fmt.Println("In-order traversal:", bst.InOrder())
 	fmt.Println("Pre-order traversal:", bst.PreOrder())
-	bst.PostOrder()
+	fmt.Println("Post-order traversal:", bst.PostOrder())
 
 	fmt.Println("")
 
