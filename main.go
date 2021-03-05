@@ -7,12 +7,12 @@ import (
 )
 
 func main() {
-	binaryTree := tree.NewBinaryTree(5)
-	fmt.Println(binaryTree)
-	binaryTree.Insert()
-	binaryTree.InOrder()
-	binaryTree.PreOrder()
-	binaryTree.PostOrder()
+	bst := tree.NewBinarySearchTree(5)
+	fmt.Println(bst)
+	bst.Insert()
+	bst.InOrder()
+	bst.PreOrder()
+	bst.PostOrder()
 
 	fmt.Println("")
 
