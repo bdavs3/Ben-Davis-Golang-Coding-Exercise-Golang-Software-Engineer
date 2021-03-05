@@ -45,7 +45,7 @@ func main() {
 		}
 
 		street := robber.NewStreet(houses)
-		street.Rob()
+		fmt.Println(street.Rob())
 	default:
 		log.Fatal("Please enter either 'tree' or 'robber' as the first program argument.")
 	}
