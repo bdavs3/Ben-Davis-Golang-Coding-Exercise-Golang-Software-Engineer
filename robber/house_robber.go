@@ -1,18 +1,18 @@
 package robber
 
-// A Street contains a list of houses.
+// A Street contains houses. A house is represented by a numerical value indicating the money it contains.
 type Street struct {
 	houses []int
 }
 
-// NewStreet initializes a Street with the given list of houses.
+// NewStreet initializes a Street with the given houses.
 func NewStreet(houses []int) *Street {
 	return &Street{
 		houses: houses,
 	}
 }
 
-// Rob calculates the best possible sum for the "House Robber" problem using the given receiver.
+// Rob calculates the best possible sum for the "House Robber" problem.
 func (s *Street) Rob() int {
 	numHouses := len(s.houses)
 
@@ -24,15 +24,16 @@ func (s *Street) Rob() int {
 	}
 
 	// To account for the circularity of the street, calculate two values and then take the max.
-	// max1 includes the first house and not the last, whereas max2 includes the last house and not the first.
-	max1 := calculateEarnings(s.houses, 0, numHouses-2)
-	max2 := calculateEarnings(s.houses, 1, numHouses-1)
+	// The first value includes the first house and not the last, whereas the second value includes
+	// the last house and not the first.
+	earnings1 := calculateEarnings(s.houses, 0, numHouses-2)
+	earnings2 := calculateEarnings(s.houses, 1, numHouses-1)
 
-	return max(max1, max2)
+	return max(earnings1, earnings2)
 }
 
-// calculateEarnings uses dynamic programming to compute an optimal sum from a list of values with the constraint
-// that adjacent values cannot both be included in the final sum.
+// calculateEarnings uses dynamic programming to compute an optimal sum from a list of values with the
+// constraint that adjacent values cannot both be included in the final sum.
 func calculateEarnings(houses []int, start, end int) int {
 	numHouses := len(houses)
 
@@ -51,7 +52,7 @@ func calculateEarnings(houses []int, start, end int) int {
 	return bestValues[end]
 }
 
-// max calculates the maximum value among a pair of integers, something that is not made available in the Go standard library.
+// max calculates the maximum value between a pair of integers.
 func max(x, y int) int {
 	if x < y {
 		return y

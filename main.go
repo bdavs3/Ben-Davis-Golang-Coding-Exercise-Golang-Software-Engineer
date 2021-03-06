@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-const usageInstructions = "Please enter either 'tree' or 'robber' as the first program argument."
+const usageInstructions = "Please enter either 'tree' or 'robber' as the first program argument. See README for more information."
 
 func main() {
 	if len(os.Args) == 1 {
@@ -40,9 +40,9 @@ func main() {
 			}
 		}
 
-		fmt.Println("In-order traversal:", printSlice(bst.InOrder()))
-		fmt.Println("Pre-order traversal:", printSlice(bst.PreOrder()))
-		fmt.Println("Post-order traversal:", printSlice(bst.PostOrder()))
+		fmt.Println("In-order traversal:", printSlice(bst.InOrder(), " "))
+		fmt.Println("Pre-order traversal:", printSlice(bst.PreOrder(), " "))
+		fmt.Println("Post-order traversal:", printSlice(bst.PostOrder(), " "))
 	case "robber":
 		values := os.Args[2:]
 		var houses []int
@@ -63,10 +63,11 @@ func main() {
 	}
 }
 
-func printSlice(s []int) string {
+// printSlice prints slice elements (without leading or trailing brackets) using the given separator.
+func printSlice(s []int, sep string) string {
 	var b bytes.Buffer
 	for _, i := range s {
-		fmt.Fprint(&b, i, " ")
+		fmt.Fprint(&b, i, sep)
 	}
 	return b.String()
 }
