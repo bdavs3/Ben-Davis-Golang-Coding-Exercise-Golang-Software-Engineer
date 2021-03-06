@@ -36,3 +36,4 @@ These are the main assumptions I made for this assignment:
 - Instead of creating a more general **binary tree** structure, I created a **binary search tree** structure so that there would be strict rules for the placement of new nodes.
 - I allowed only integers (not floats) for the binary search tree.
 - I did not allow duplicate values for the binary search tree.
+- For program usage, I decided to allow the user to enter custom input rather than hard-coding input given in the challenge spec. I reserved hard-coded inputs for the testing modules.

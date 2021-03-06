@@ -52,7 +52,7 @@ func calculateEarnings(houses []int, start, end int) int {
 	return bestValues[end]
 }
 
-// max calculates the maximum value between a pair of integers.
+// max returns the maximum value between a pair of integers.
 func max(x, y int) int {
 	if x < y {
 		return y
