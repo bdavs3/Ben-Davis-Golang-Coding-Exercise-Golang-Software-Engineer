@@ -6,23 +6,34 @@ import (
 	"sync"
 )
 
+// A BinarySearchTree is a binary tree with the following properties:
+//
+// - The left subtree of a node contains only nodes with keys lesser than the node’s key.
+//
+// - The right subtree of a node contains only nodes with keys greater than the node’s key.
+//
+// - The left and right subtree each must also be a binary search tree.
+//
+// In this implementation, BinarySearchTrees are not allowed duplicate values.
 type BinarySearchTree struct {
 	root *Node
 	mu   sync.RWMutex // Synchronize access to the BST to avoid race conditions.
 }
 
+// NewBinarySearchTree initializes a BinarySearchTree with a nil root.
 func NewBinarySearchTree() *BinarySearchTree {
 	return &BinarySearchTree{
 		root: nil,
 	}
 }
 
+// A Node contains an integer value and has at most two children.
 type Node struct {
-	val   int
-	left  *Node
-	right *Node
+	val         int
+	left, right *Node
 }
 
+// NewNode initializes a Node with the given value and nil children.
 func NewNode(val int) *Node {
 	return &Node{
 		val:   val,
@@ -31,6 +42,7 @@ func NewNode(val int) *Node {
 	}
 }
 
+// Insert adds a node in the proper place within the BinarySearchTree.
 func (bst *BinarySearchTree) Insert(val int) error {
 	bst.mu.Lock()
 	defer bst.mu.Unlock()
@@ -57,13 +69,14 @@ func traverseAndInsert(root, insert *Node) error {
 		} else {
 			traverseAndInsert(root.right, insert)
 		}
-	} else { // As a simplification, prevent the tree from containing duplicate values.
+	} else { // Prevent the tree from inserting duplicate values.
 		return errors.New(fmt.Sprintf("The value %d is already in the binary search tree!", insert.val))
 	}
 
 	return nil
 }
 
+// InOrder returns a list of integers resulting from in-order traversal of the BinarySearchTree.
 func (bst *BinarySearchTree) InOrder() []int {
 	bst.mu.RLock()
 	defer bst.mu.RUnlock()
@@ -81,6 +94,7 @@ func traverseInOrder(visited *[]int, root *Node) {
 	}
 }
 
+// PreOrder returns a list of integers resulting from pre-order traversal of the BinarySearchTree.
 func (bst *BinarySearchTree) PreOrder() []int {
 	bst.mu.RLock()
 	defer bst.mu.RUnlock()
@@ -98,6 +112,7 @@ func traversePreOrder(visited *[]int, root *Node) {
 	}
 }
 
+// PostOrder returns a list of integers resulting from post-order traversal of the BinarySearchTree.
 func (bst *BinarySearchTree) PostOrder() []int {
 	bst.mu.RLock()
 	defer bst.mu.RUnlock()
