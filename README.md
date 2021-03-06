@@ -6,7 +6,7 @@ Specifications for the challenge can be found in the [Challenge](https://github.
 
 ## System Requirements
 
-You'll need to have Go installed on your system in order to run the code.
+You'll need to have [Go](https://golang.org/dl/) installed on your system in order to run the code.
 
 ## Usage
 
