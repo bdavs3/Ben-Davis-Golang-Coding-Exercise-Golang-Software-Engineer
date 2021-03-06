@@ -20,3 +20,12 @@ Post-order traversal: [2 1 9 8 17 5]
 $ go run main.go robber 1 2 3 1 # Provide house values to compute the best possible robbing route
 4
 ```
+
+## Testing
+
+To run tests on the packages, use the built-in Go CLI tool:
+
+```sh
+$ go test ./... # Run each group of tests to see what passed or failed
+$ go test -v ./... # Use the "verbose" flag to see descriptions of each test
+```
