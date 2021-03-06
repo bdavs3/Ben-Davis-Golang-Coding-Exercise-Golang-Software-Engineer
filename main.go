@@ -32,7 +32,20 @@ func main() {
 		fmt.Println("Pre-order traversal:", bst.PreOrder())
 		fmt.Println("Post-order traversal:", bst.PostOrder())
 	case "robber":
-		robber.HouseRobber()
+		values := os.Args[2:]
+		var houses []int
+
+		for _, val := range values {
+			intVal, err := strconv.Atoi(val)
+			if err != nil {
+				log.Fatal("Houses may only be represented by integer cash values.")
+			}
+
+			houses = append(houses, intVal)
+		}
+
+		street := robber.NewStreet(houses)
+		fmt.Println(street.Rob())
 	default:
 		log.Fatal("Please enter either 'tree' or 'robber' as the first program argument.")
 	}
